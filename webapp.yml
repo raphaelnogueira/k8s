@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: webapp
+  name: webapp
+spec:
+  selector:
+    matchLabels:
+      app: webapp
+  template:
+    metadata:
+      labels:
+        app: webapp
+    spec:
+      volumes:
+      - name: webroot
+        emptyDir: {}
+      initContainers:
+      - name: webapp-init-container
+        image: hectorvido/git
+        command: ["git", "clone", "https://github.com/4linux/4542-site", "/tmp/html"]
+        volumeMounts:
+        - name: webroot
+          mountPath: /tmp/html
+      containers:
+      - name: webapp-container
+        image: httpd:alpine
+        volumeMounts:
+        - name: webroot
+          mountPath: /usr/local/apache2/htdocs/
+        ports:
+        - containerPort: 80

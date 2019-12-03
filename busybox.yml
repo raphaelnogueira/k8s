@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: busybox
+  name: busybox
+spec:
+  selector:
+    matchLabels:
+      app: busybox
+  template:
+    metadata:
+      labels:
+        app: busybox
+    spec:
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: vesco
+      containers:
+      - image: busybox
+        name: busybox
+        tty: true
+        stdin: true
+        volumeMounts:
+        - name: data
+          mountPath: /data

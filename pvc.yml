@@ -8,3 +8,15 @@ spec:
       storage: 1Gi
   accessModes: 
   - ReadWriteOnce
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: vesco
+spec:
+  resources:
+    requests:
+      storage: 256Mi
+  accessModes: 
+  - ReadWriteOnce
+  storageClassName: 'hard-disk'

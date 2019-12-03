@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: webapp
+spec:
+  tls:
+  - hosts:
+    - webapp.192-168-99-100.nip.io
+    secretName: perl
+  rules:
+  - host: webapp.192-168-99-100.nip.io
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: webapp
+          servicePort: 8080

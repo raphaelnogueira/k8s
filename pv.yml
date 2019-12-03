@@ -9,3 +9,16 @@ spec:
   - ReadWriteOnce
   hostPath:
     path: /tmp/redis-cache
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: vesco
+spec:
+  capacity:
+    storage: 512Mi
+  storageClassName: hard-disk
+  accessModes:
+  - ReadWriteOnce
+  hostPath:
+    path: /tmp/vesco

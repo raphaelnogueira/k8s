@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: cgi
+  name: cgi
+spec:
+  replicas: 12
+  selector:
+    matchLabels:
+      app: cgi
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: cgi
+    spec:
+      containers:
+      - image: hectorvido/sh-cgi
+        name: sh-cgi
+        ports:
+        - containerPort: 80
+        resources: {}
+status: {}

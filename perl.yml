@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: perl
+  name: perl
+spec:
+  selector:
+    matchLabels:
+      app: perl
+  template:
+    metadata:
+      labels:
+        app: perl
+    spec:
+      containers:
+      - image: hectorvido/dancer
+        name: dancer
+        env:
+        - name: REDIS_SERVER
+          value: redis
+        - name: REDIS_PORT
+          value: '6379'
+        - name: REDIS_PASSWORD
+          value: f9f27b73b7033c3ce2d91c00f7bb46cd9face89fd8b4de5d6e2733d3ac84a6de
+        ports:
+        - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: perl
+  name: perl
+spec:
+  ports:
+  - port: 5000
+    protocol: TCP
+    targetPort: 5000
+    nodePort: 32000
+  selector:
+    app: perl
+  type: NodePort
+status:
+  loadBalancer: {}
